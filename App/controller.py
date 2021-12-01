@@ -76,7 +76,10 @@ def GetcargarDatos(catalog):
     #for linea in input_citiesfile:
      #   model.addCity()
     return catalog
- 
+
+#req 1
+def getconnectedComponents(catalog):
+    return model.connectedComponents(catalog)
 # Inicialización del Catálogo de libros
  
 # Funciones para la carga de datos

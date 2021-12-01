@@ -31,6 +31,8 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Utils import error as error
+from DISClib.Algorithms.Graphs import scc
+from DISClib.Algorithms.Graphs import dijsktra as djk
 assert cf
  
 """
@@ -143,7 +145,37 @@ def addRutaNoD(catalog, origen, destino, peso):
 def addCity(catalog, linea):
  
     pass
- 
+# Req 1----------------------------------------------------------------------------------------------------------
+"""
+Como analista de vuelos deseo encontrar el (los) aeropuerto(s) que sirven como punto de
+interconexión a más rutas aéreas en la red en cada uno de los grafos.
+Para dar respuesta a este requerimiento el equipo de desarrollo no necesita ninguna entrada, y
+como respuesta debe presentar en consola la siguiente información:
+• Lista de aeropuertos (IATA, nombre, ciudad, país).
+• Número de aeropuertos interconectados.
+"""
+def connectedComponents(catalog):
+    """
+    Calcula los componentes conectados del grafo dirigido
+    Se utiliza el algoritmo de Kosaraju
+    """
+    catalog['components'] = scc.KosarajuSCC(catalog['gd_aero_ruta'])
+    numscc = scc.connectedComponents(catalog['components'])
+    #for line in catalog['components']:
+    return numscc
+
+#req 2---------------------------------------------------------------------------------------------------------
+"""
+Como analista de vuelos deseo encontrar la cantidad de clústeres (componentes fuertemente
+conectados) dentro de la red de tráfico aéreo y si dos aeropuertos pertenecen o no al mismo clúster.
+Las entradas de este requerimiento son:
+• Código IATA del aeropuerto 1.
+• Código IATA del aeropuerto 2.
+Y como respuesta debe presentar en consola la siguiente información:
+• Número total de clústeres presentes en la red de transporte aéreo.
+• Informar si los dos aeropuertos están en el mismo clúster o no.
+"""
+
 # Funciones para creacion de datos
  
 # Funciones de consulta

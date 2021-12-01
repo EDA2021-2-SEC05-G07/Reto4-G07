@@ -45,6 +45,7 @@ def printMenu():
     print("6- Req 5")
  
 catalog = controller.GetIniciarDatos()
+init = controller.GetIniciarDatos()
 """
 Menu principal
 """
@@ -64,7 +65,8 @@ while True:
         print('El numero de rutas aéreas (arcos) en el grafo NO dirigido es: ' + str(numArcoND))
        # print(lt.size(catalog['rutas']))
     elif int(inputs[0]) == 2:
-        pass
+        numscc = controller.getconnectedComponents(catalog)
+        print("el número de scc es:" +str(numscc))
     elif int(inputs[0]) == 3:
        pass
     elif int(inputs[0]) == 4:
