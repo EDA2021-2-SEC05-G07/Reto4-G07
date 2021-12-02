@@ -110,7 +110,7 @@ def getconnectedComponents(catalog, aero1, aero2):
     tupla = model.connectedComponents(catalog,aero1, aero2)
     return tupla
 
-#req3
+#req3 --------------------------------------------------------------------------------------
 def getrutamascorta(catalog, origen, destino):
     return model.rutamascorta(catalog, origen, destino)
 # Inicialización del Catálogo de libros
