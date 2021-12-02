@@ -26,7 +26,7 @@ import controller
 from DISClib.ADT import list as lt
 assert cf
 from DISClib.ADT.graph import gr
- 
+import threading
  
 """
 La vista se encarga de la interacción con el usuario
@@ -34,7 +34,10 @@ Presenta el menu de opciones y por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
- 
+if __name__ == "__main__":
+    threading.stack_size(67108864)  # 64MB stack
+    sys.setrecursionlimit(2 ** 20)
+    
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
@@ -65,10 +68,10 @@ while True:
         print('El numero de rutas aéreas (arcos) en el grafo NO dirigido es: ' + str(numArcoND))
        # print(lt.size(catalog['rutas']))
     elif int(inputs[0]) == 2:
-        numscc = controller.getconnectedComponents(catalog)
-        print("el número de scc es:" +str(numscc))
+        pass
     elif int(inputs[0]) == 3:
-       pass
+       numscc = controller.getconnectedComponents(catalog)
+       print("el número de scc es:" +str(numscc))
     elif int(inputs[0]) == 4:
         pass
     elif int(inputs[0]) == 5:
@@ -79,3 +82,5 @@ while True:
     else:
         sys.exit(0)
 sys.exit(0)
+
+    

@@ -24,6 +24,7 @@
  * Dario Correal - Version inicial
  """
  
+from math import trunc
 from DISClib.ADT.graph import gr
 import config as cf
 from DISClib.ADT import list as lt
@@ -33,6 +34,8 @@ from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Utils import error as error
 from DISClib.Algorithms.Graphs import scc
 from DISClib.Algorithms.Graphs import dijsktra as djk
+from DISClib.Algorithms.Graphs import dfs
+
 assert cf
  
 """
@@ -154,15 +157,8 @@ como respuesta debe presentar en consola la siguiente información:
 • Lista de aeropuertos (IATA, nombre, ciudad, país).
 • Número de aeropuertos interconectados.
 """
-def connectedComponents(catalog):
-    """
-    Calcula los componentes conectados del grafo dirigido
-    Se utiliza el algoritmo de Kosaraju
-    """
-    catalog['components'] = scc.KosarajuSCC(catalog['gd_aero_ruta'])
-    numscc = scc.connectedComponents(catalog['components'])
-    #for line in catalog['components']:
-    return numscc
+def inter_dirigido(catalog):
+    pass
 
 #req 2---------------------------------------------------------------------------------------------------------
 """
@@ -175,6 +171,16 @@ Y como respuesta debe presentar en consola la siguiente información:
 • Número total de clústeres presentes en la red de transporte aéreo.
 • Informar si los dos aeropuertos están en el mismo clúster o no.
 """
+def connectedComponents(catalog, aero1, aero2):
+    """
+    Calcula los componentes conectados del grafo dirigido
+    Se utiliza el algoritmo de Kosaraju
+    """
+    catalog['components'] = scc.KosarajuSCC(catalog['gd_aero_ruta'])
+    numscc = scc.connectedComponents(catalog['components'])
+    aeros_cluster = scc.stronglyConnected(catalog['components'], aero1, aero2)
+    return numscc, aeros_cluster
+
 
 # Funciones para creacion de datos
  
