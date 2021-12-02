@@ -51,7 +51,7 @@ def GetcargarDatos(catalog):
     """
     Carga los datos de los archivos CSV en el modelo.
     """
-    routesfile = cf.data_dir + 'routes-utf8-small.csv'
+    routesfile = cf.data_dir + 'routes-utf8-large.csv'
     input_routfile = csv.DictReader(open(routesfile, encoding="utf-8"),
                                 delimiter=",")
     input_routfile2 = csv.DictReader(open(routesfile, encoding="utf-8"),
@@ -78,8 +78,9 @@ def GetcargarDatos(catalog):
     return catalog
 
 #req 1
-def getconnectedComponents(catalog):
-    return model.connectedComponents(catalog)
+def getconnectedComponents(catalog, aero1, aero2):
+    tupla = model.connectedComponents(catalog,aero1, aero2)
+    return tupla
 # Inicialización del Catálogo de libros
  
 # Funciones para la carga de datos

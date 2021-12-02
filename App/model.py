@@ -177,9 +177,15 @@ def connectedComponents(catalog, aero1, aero2):
     Se utiliza el algoritmo de Kosaraju
     """
     catalog['components'] = scc.KosarajuSCC(catalog['gd_aero_ruta'])
-    numscc = scc.connectedComponents(catalog['components'])
-    aeros_cluster = scc.stronglyConnected(catalog['components'], aero1, aero2)
-    return numscc, aeros_cluster
+    numscc = int(scc.connectedComponents(catalog['components']))
+    print(numscc)
+    aeros_cluster = (scc.stronglyConnected(catalog['components'], aero1, aero2))
+    if aeros_cluster == False:
+        mnjs = str(print("Los aeropuertos no pertenecen al mismo componente"))
+    else:
+        mnjs = str(print("Si pertenecen al mismo componente"))
+    tupla = numscc, mnjs
+    return tupla
 
 
 # Funciones para creacion de datos
