@@ -109,7 +109,7 @@ def addAirport(catalog, aeropuerto):
     """
     if gr.containsVertex(catalog['gd_aero_ruta'], aeropuerto) == False:
         gr.insertVertex(catalog['gd_aero_ruta'], aeropuerto)
- 
+    
 def addRouteConnections(catalog, origen, destino, peso):
     """
     Por cada vertice (cada aeropueto) se recorre la lista
@@ -146,8 +146,16 @@ def addRutaNoD(catalog, origen, destino, peso):
         gr.addEdge(catalog['g_una_ruta'], origen, destino, peso)
  
 def addCity(catalog, linea):
- 
-    pass
+    if mp.contains(catalog['city'], linea['city']):
+        valor= mp.get(catalog['city'], linea['city'])
+        info= me.getValue(valor)
+        lt.addLast(info, linea)
+    else:
+        info=lt.newList()
+        lt.addLast(info, linea)
+        mp.put(catalog['city'], linea['city'], info)
+    
+
 # Req 1----------------------------------------------------------------------------------------------------------
 """
 Como analista de vuelos deseo encontrar el (los) aeropuerto(s) que sirven como punto de
@@ -180,6 +188,24 @@ def connectedComponents(catalog, aero1, aero2):
     numscc = scc.connectedComponents(catalog['components'])
     aeros_cluster = scc.stronglyConnected(catalog['components'], aero1, aero2)
     return numscc, aeros_cluster
+
+#req 3-----------------------------------------------------------------------------------------------------------
+"""
+Como analista de vuelos deseo encontrar la ruta mínima en distancia para viajar entre dos ciudades,
+los puntos de origen y de destino serán los nombres de las ciudades.
+Las entradas de este requerimiento son:
+• Ciudad de origen.
+• Ciudad de destino.
+"""
+def rutamascorta(catalog, origen, destino):
+    orig= mp.get(catalog['city'], origen)
+    dest=mp.get(catalog['city'], destino)
+    return (orig, dest)
+def selecruta(catalog, opcionCiudad, opcionCiudad2):
+    pass
+
+    
+
 
 
 # Funciones para creacion de datos

@@ -27,6 +27,7 @@ from DISClib.ADT import list as lt
 assert cf
 from DISClib.ADT.graph import gr
 import threading
+from DISClib.ADT import map as mp 
  
 """
 La vista se encarga de la interacción con el usuario
@@ -66,6 +67,8 @@ while True:
         print('El numero de rutas aéreas (arcos) en el grafo dirigido es: ' + str(numArcoDiri))
         print('El numero de aeropuestos (vertices) en el grafo NO dirigido es: ' + str(numVertND))
         print('El numero de rutas aéreas (arcos) en el grafo NO dirigido es: ' + str(numArcoND))
+        print('El primer aeropuerto del digrafo')
+        catalog['gd_aero_ruta']
        # print(lt.size(catalog['rutas']))
     elif int(inputs[0]) == 2:
         pass
@@ -73,7 +76,25 @@ while True:
        numscc = controller.getconnectedComponents(catalog)
        print("el número de scc es:" +str(numscc))
     elif int(inputs[0]) == 4:
-        pass
+        origen= input('Escriba la ciudad de origen: ')
+        destino= input('Escriba la ciudad de destino: ')
+        ciudades= controller.getrutamascorta(catalog, origen, destino)
+        x=0
+        if mp.size(ciudades[0]) > 1:
+            for linea in ciudades[0]:
+                x+=1
+                print('Opcion ')+ str(x)
+                print (linea)
+                opcionCiudad=input('Digite la opcion que necesita:')
+        opcionCiudad= int(opcionCiudad)-1
+        y=0
+        if mp.size(ciudades[1]) > 1:
+            for linea in ciudades[1]:
+                y+=1
+                print('Opcion ')+ str(x)
+                print (linea)
+                opcionCiudad2=input('Digite la opcion que necesita:')
+        opcionCiudad2= int(opcionCiudad2)-1
     elif int(inputs[0]) == 5:
         pass
     elif int(inputs[0]) == 6:

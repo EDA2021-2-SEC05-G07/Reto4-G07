@@ -56,9 +56,21 @@ def GetcargarDatos(catalog):
                                 delimiter=",")
     input_routfile2 = csv.DictReader(open(routesfile, encoding="utf-8"),
                                 delimiter=",")
+    primero=0
+    primeroaero=''
+    ulyimoaero=''
+    tam= len(input_routfile)
     for ruta in input_routfile:
+        primero+=1
+        if primero == 1:
+            primeroaero=ruta
+        if primero == tam-1:
+            ultimoaero=ruta
         model.addRuta(catalog, ruta)
- 
+    
+    ultimaruta=''
+    primeroND=0
+    primeroaeroND=''
     for linea in input_routfile2:
         origen2 = linea['Departure']
         destino2= linea['Destination']
@@ -68,18 +80,34 @@ def GetcargarDatos(catalog):
         ida = gr.getEdge(catalog['gd_aero_ruta'], origen2, destino2)
         vuelta = gr.getEdge(catalog['gd_aero_ruta'], destino2, origen2)
         if ida != None and vuelta != None:
+            primeroND+=1
+            ultimaruta= linea
+        if primeroND == 1:
+            primeroaeroND=linea
             model.addRutaNoD(catalog, origen2, destino2, peso)
  
-    #citiesfile = cf.data_dir + 'worldcities.csv'
-    #input_citiesfile = csv.DictReader(open(citiesfile, encoding="utf-8"),
-      #                          delimiter=",")
-    #for linea in input_citiesfile:
-     #   model.addCity()
-    return catalog
+    citiesfile = cf.data_dir + 'worldcities.csv'
+    input_citiesfile = csv.DictReader(open(citiesfile, encoding="utf-8"),
+                                delimiter=",")
+    contador=0
+    primerC=0
+    primerCiudad=''
+    ultimaCiudad=''
+    tam= len(input_routfile)
+    for linea in input_citiesfile:
+        primerC+=1
+        if primerC == 1:
+            primerCiudad= linea
+        ultimaCiudad=linea
+        model.addCity(catalog, linea)
+    return (catalog, contador, primeroaero, ultimoaero,ultimaruta, primeroaeroND, primerCiudad, ultimaCiudad)
 
 #req 1
 def getconnectedComponents(catalog):
     return model.connectedComponents(catalog)
+#req2
+def getrutamascorta(catalog, origen, destino):
+    return model.rutamascorta(catalog, origen, destino)
 # Inicialización del Catálogo de libros
  
 # Funciones para la carga de datos
