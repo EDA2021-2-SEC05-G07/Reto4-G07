@@ -73,8 +73,11 @@ while True:
     elif int(inputs[0]) == 2:
         pass
     elif int(inputs[0]) == 3:
-       numscc = controller.getconnectedComponents(catalog)
-       print("el número de scc es:" +str(numscc))
+        aero1 = str(input("Airport-1 IATA code: "))
+        aero2 = str(input("Airport-2 IATA code: "))
+        tupla = controller.getconnectedComponents(catalog, aero1, aero2)
+        print("el número de scc en la red de aeropuetos es: " +str(tupla[0]))
+        print("La pareja de aeropuertos está dentro del mismo componente? "+ str(tupla[1]))
     elif int(inputs[0]) == 4:
         origen= input('Escriba la ciudad de origen: ')
         destino= input('Escriba la ciudad de destino: ')
