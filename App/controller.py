@@ -51,7 +51,7 @@ def GetcargarDatos(catalog):
     """
     Carga los datos de los archivos CSV en el modelo.
     """
-    routesfile = cf.data_dir + 'routes-utf8-large.csv'
+    routesfile = cf.data_dir + 'routes-utf8-small.csv'
     input_routfile = csv.DictReader(open(routesfile, encoding="utf-8"),
                                 delimiter=",")
     input_routfile2 = csv.DictReader(open(routesfile, encoding="utf-8"),
