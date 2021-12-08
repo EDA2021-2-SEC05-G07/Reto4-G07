@@ -58,9 +58,10 @@ def GetcargarDatos(catalog):
                                 delimiter=",")
     primero=0
     primeroaero=''
-    ulyimoaero=''
-    tam= len(input_routfile)
+    ultimoaero=''
+    tam= 0
     for ruta in input_routfile:
+        tam +=1
         primero+=1
         if primero == 1:
             primeroaero=ruta
@@ -93,9 +94,10 @@ def GetcargarDatos(catalog):
     primerC=0
     primerCiudad=''
     ultimaCiudad=''
-    tam= len(input_routfile)
+    tamc= 0
     for linea in input_citiesfile:
         primerC+=1
+        tam+=1
         if primerC == 1:
             primerCiudad= linea
         ultimaCiudad=linea
