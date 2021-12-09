@@ -110,7 +110,7 @@ def addAirport(catalog, aeropuerto):
     """
     if gr.containsVertex(catalog['gd_aero_ruta'], aeropuerto) == False:
         gr.insertVertex(catalog['gd_aero_ruta'], aeropuerto)
-    
+   
 def addRouteConnections(catalog, origen, destino, peso):
     """
     Por cada vertice (cada aeropueto) se recorre la lista
@@ -155,9 +155,9 @@ def addCity(catalog, linea):
         info=lt.newList()
         lt.addLast(info, linea)
         mp.put(catalog['city'], linea['city'], info)
-    
-    
-
+   
+   
+ 
 # Req 1----------------------------------------------------------------------------------------------------------
 """
 Como analista de vuelos deseo encontrar el (los) aeropuerto(s) que sirven como punto de
@@ -174,12 +174,23 @@ def inter_dirigido(catalog):
         arcos_llegada = int(gr.indegree(catalog['gd_aero_ruta'], element))
         arcos_salida = int(gr.degree(catalog['gd_aero_ruta'], element))
         suma = int(arcos_llegada + arcos_salida)
-        om.put(mapa, element, suma)
-        pareja = om.get(catalog['gd_aero_ruta'], element)
+        if om.contains(mapa,element)== False:
+            om.put(mapa, element, suma)
+        else:
+            pass
+    llaves_map= om.keySet(mapa)
+    size = om.size(mapa)
+    lst_while = lt.newList()
+    for element in lt.iterator(llaves_map):
+        lst_elemento = lt.newList()
+        pareja = om.get(mapa, element)
         valor = me.getValue(pareja)
-    
-
-
+        conec = str('conecctions:'+ str(valor))
+        lt.addLast(lst_elemento, element)
+        lt.addLast(lst_elemento, conec)
+        lt.addLast(lst_while, lst_elemento)      
+    lst_final = lt.subList(lst_while, 1, 5)
+    return lst_final, size
 #req 2---------------------------------------------------------------------------------------------------------
 """
 Como analista de vuelos deseo encontrar la cantidad de clústeres (componentes fuertemente
@@ -198,15 +209,13 @@ def connectedComponents(catalog, aero1, aero2):
     """
     catalog['components'] = scc.KosarajuSCC(catalog['gd_aero_ruta'])
     numscc = int(scc.connectedComponents(catalog['components']))
-    print(numscc)
     aeros_cluster = (scc.stronglyConnected(catalog['components'], aero1, aero2))
     if aeros_cluster == False:
-        mnjs = str(print("Los aeropuertos no pertenecen al mismo componente"))
+        str(print("Los aeropuertos no pertenecen al mismo componente"))
     else:
-        mnjs = str(print("Si pertenecen al mismo componente"))
-    tupla = numscc, mnjs
-    return tupla
-
+        str(print("Si pertenecen al mismo componente"))
+    return numscc
+ 
 #req 3-----------------------------------------------------------------------------------------------------------
 """
 Como analista de vuelos deseo encontrar la ruta mínima en distancia para viajar entre dos ciudades,
@@ -232,7 +241,7 @@ def selecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest):
     longitudciudado=radians(longitudciudado)
     latitudciudadd=radians(latitudciudadd)
     longitudciudadd=radians(longitudciudadd)
-
+ 
     x=10
     aeropuertosCiudadOrigen=lt.newList()
     aeropuertosCiudadDestino=lt.newList()
@@ -247,16 +256,60 @@ def selecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest):
             lt.addLast(aeropuertosCiudadDestino, linea['Name'])
         else:
             x+=10
-
+ 
     return (aeropuertosCiudadOrigen,aeropuertosCiudadDestino)
-
-
+ 
+ 
     pass
-
-    
-
-
-
+#req 4----------------------------------------------------------------------------------------------------------------
+"""
+Como viajero desea utilizar sus millas para realizar un viaje redondo que cubra la mayor cantidad de
+ciudades que él pueda visitar. Para ello se necesita identificar el árbol de expansión mínima en
+cuanto a distancia que maximice la cantidad de ciudades de la red (representadas por los
+aeropuertos).
+Recuerde que en el plan del viajero una milla equivale a 1.60 kilómetros y que el viajero inicia y
+termina su viaje en la ciudad seleccionada por el usuario. Y por ser un árbol, se visitan las ciudades
+en las ramas regresándose por ellas para luego explorar las subsecuentes ramas.
+Las entradas de este requerimiento son:
+• Ciudad de origen.
+• Cantidad de millas disponibles del viajero.
+Como respuesta esperada debe presentar en consola la siguiente información:
+• El número de nodos conectados al árbol de expansión mínima.
+• El costo total (distancia en [km]) al árbol de expansión mínima.
+• Presentar la rama más larga (mayor número de arcos entre la raíz y la hoja) que hace parte
+del árbol de expansión mínima.
+• La cantidad de millas faltantes o excedentes según la distancia total recomendada por la
+rama más larga
+"""
+def millas(catalog, origen, millasDisp):
+   
+    pass
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+#req 5------------------------------------------------------------------------------------------------------------------
+"""
+Como administrador de tráfico aéreo deseo conocer el impacto que tendría que un aeropuerto
+específico saliera de funcionamiento. Para tal fin se requiere conocer la lista de aeropuertos que
+podrían verse afectados. Para ello las entradas de este requerimiento son:
+• Código IATA del aeropuerto fuera de funcionamiento.
+Y como respuesta debe presentar en consola la siguiente información:
+• Número de aeropuertos afectados.
+• Lista de aeropuertos afectados con nombre, ciudad y código IATA e imprimir por consola los
+primeros 3 y últimos 3 aeropuertos de la lista.
+EJEMPLO: Se desea cerrar el Aeropuerto Internacional de Dubái (Dubai International Airport) con
+código IATA “DXB” y ver su efecto en la red de aeropuertos.
+Nota: El conteo de rutas y aeropuertos eliminados en el grafo dirigido y no-dirigido se imprime en
+consola solo para ilustrar como se está elimina el vértice del aeropuerto con código IATA “DBX”
+"""
+   
+ 
+ 
+ 
 # Funciones para creacion de datos
  
 # Funciones de consulta

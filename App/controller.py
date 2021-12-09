@@ -51,7 +51,7 @@ def GetcargarDatos(catalog):
     """
     Carga los datos de los archivos CSV en el modelo.
     """
-    routesfile = cf.data_dir + 'routes-utf8-5pct.csv'
+    routesfile = cf.data_dir + 'routes-utf8-small.csv'
     input_routfile = csv.DictReader(open(routesfile, encoding="utf-8"),
                                 delimiter=",")
     input_routfile2 = csv.DictReader(open(routesfile, encoding="utf-8"),
@@ -68,7 +68,7 @@ def GetcargarDatos(catalog):
         if primero == tam-1:
             ultimoaero=ruta
         model.addRuta(catalog, ruta)
-    
+   
     ultimaruta=''
     primeroND=0
     primeroaeroND=''
@@ -103,20 +103,25 @@ def GetcargarDatos(catalog):
         ultimaCiudad=linea
         model.addCity(catalog, linea)
     return (catalog, contador, primeroaero, ultimoaero,ultimaruta, primeroaeroND, primerCiudad, ultimaCiudad)
-
-#req 1
-def getconnectedComponents(catalog):
-    return model.connectedComponents(catalog)
-#req2
+ 
+#req 1-------------------------------------------------------------------------------------------------------------
+def getinter_dirigido(catalog):
+    top5, size = model.inter_dirigido(catalog)
+    return top5, size
+#req2------------------------------------------------------------------------------------------------------------
 def getconnectedComponents(catalog, aero1, aero2):
-    tupla = model.connectedComponents(catalog,aero1, aero2)
-    return tupla
-
-#req3 --------------------------------------------------------------------------------------
+    numscc = model.connectedComponents(catalog,aero1, aero2)
+    return numscc
+ 
+#req3 ------------------------------------------------------------------------------------------------------------
 def getrutamascorta(catalog, origen, destino):
     return model.rutamascorta(catalog, origen, destino)
 def getselecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest):
     return model.selecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest)
+#req 4--------------------------------------------------------------------------------------------------------------
+def getMillas(catalog, origen, millasDisp):
+    return model.millas(catalog, origen, millasDisp)
+#req 5---------------------------------------------------------------------------------------------------------------
 # Inicialización del Catálogo de libros
  
 # Funciones para la carga de datos
@@ -124,4 +129,6 @@ def getselecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest):
 # Funciones de ordenamiento
  
 # Funciones de consulta sobre el catálogo
+ 
+
  

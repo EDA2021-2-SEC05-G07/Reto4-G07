@@ -114,13 +114,18 @@ while True:
         # print(uc['lat'])
         # print(uc['lng'])
     elif int(inputs[0]) == 2:
-        pass
+        top5, size = controller.getinter_dirigido(catalog)
+        print('top 5 aeropuertos interconectados: ')
+        print(top5)
+        print('Número de aeropuertos interconectados:'+ str(size))
+        
     elif int(inputs[0]) == 3:
+        print('para pruebas usar IATA1: LED, IATA2:SKG')
         aero1 = str(input("Airport-1 IATA code: "))
         aero2 = str(input("Airport-2 IATA code: "))
-        tupla = controller.getconnectedComponents(catalog, aero1, aero2)
-        print("el número de scc en la red de aeropuetos es: " +str(tupla[0]))
-        print("La pareja de aeropuertos está dentro del mismo componente? "+ str(tupla[1]))
+        numscc = controller.getconnectedComponents(catalog, aero1, aero2)
+        print("el número de scc en la red de aeropuetos es: " +str(numscc))
+        
     elif int(inputs[0]) == 4:
         origen= input('Escriba la ciudad de origen: ')
         destino= input('Escriba la ciudad de destino: ')
@@ -144,7 +149,9 @@ while True:
         ciudadescortas= controller.getselecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest)
 
     elif int(inputs[0]) == 5:
-        pass
+        origen = input('ingrese una ciudad de origen: ')
+        millasDisp= input('ingrese sus millas disponibles')
+        controller.getMillas(catalog, origen, millasDisp)
     elif int(inputs[0]) == 6:
    
         pass
