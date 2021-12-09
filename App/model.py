@@ -169,15 +169,12 @@ como respuesta debe presentar en consola la siguiente información:
 """
 def inter_dirigido(catalog):
     lst_vertices = gr.vertices(catalog['gd_aero_ruta'])
-    mapa = mp.newMap(1153, 
-                    maptype='PROBING',
-                    loadfactor=0.6, 
-                    comparefunction=compareMap)
+    mapa = om.newMap(omaptype='BST', comparefunction=compare2)
     for element in lt.iterator(lst_vertices):
         arcos_llegada = int(gr.indegree(catalog['gd_aero_ruta'], element))
         arcos_salida = int(gr.degree(catalog['gd_aero_ruta'], element))
         suma = int(arcos_llegada + arcos_salida)
-        mp.put(mapa, element, suma)
+        om.put(mapa, element, suma)
         pareja = om.get(catalog['gd_aero_ruta'], element)
         valor = me.getValue(pareja)
     
