@@ -38,7 +38,7 @@ from DISClib.Algorithms.Graphs import dijsktra as djk
 from DISClib.Algorithms.Graphs import dfs
 assert cf
 from DISClib.ADT import orderedmap as om
- 
+from DISClib.Algorithms.Graphs import prim
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
 los mismos.
@@ -282,7 +282,14 @@ del árbol de expansión mínima.
 rama más larga
 """
 def millas(catalog, origen, millasDisp):
-   
+    search = prim.PrimMST(catalog['gd_aero_ruta'])
+    lista_nodos = prim.weightMST(catalog['gd_aero_ruta'],search)
+    dfsSearch= dfs.DepthFirstSearch(catalog['gd_aero_ruta'], origen)
+    for element in lt.iterator(lista_nodos):
+        if element== origen:
+            pass
+        else:
+            dfs.pathTo(dfsSearch, element)
     pass
  
  
