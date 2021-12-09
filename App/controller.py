@@ -102,6 +102,11 @@ def GetcargarDatos(catalog):
             primerCiudad= linea
         ultimaCiudad=linea
         model.addCity(catalog, linea)
+    airportsfile = cf.data_dir + 'airports-utf8-small.csv'
+    input_airportsfile = csv.DictReader(open(airportsfile, encoding="utf-8"),
+                                delimiter=",")
+    for linea in input_airportsfile:
+        model.addAirportMAP(catalog,linea)
     return (catalog, contador, primeroaero, ultimoaero,ultimaruta, primeroaeroND, primerCiudad, ultimaCiudad)
  
 #req 1-------------------------------------------------------------------------------------------------------------
@@ -122,6 +127,8 @@ def getselecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest):
 def getMillas(catalog, origen, millasDisp):
     return model.millas(catalog, origen, millasDisp)
 #req 5---------------------------------------------------------------------------------------------------------------
+def getaeropuertoCerrado(catalog, codigoIATA):
+    return model.aeropuertoCerrado(catalog, codigoIATA)
 # Inicialización del Catálogo de libros
  
 # Funciones para la carga de datos

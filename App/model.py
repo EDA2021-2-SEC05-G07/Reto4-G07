@@ -155,7 +155,10 @@ def addCity(catalog, linea):
         info=lt.newList()
         lt.addLast(info, linea)
         mp.put(catalog['city'], linea['city'], info)
-   
+def addAirportMAP(catalog,linea):
+    lista=lt.newList() 
+    lt.addLast(lista, linea)
+    mp.put(catalog['aeropuertos_g'],linea['Name'], lista)  
    
  
 # Req 1----------------------------------------------------------------------------------------------------------
@@ -245,15 +248,20 @@ def selecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest):
     x=10
     aeropuertosCiudadOrigen=lt.newList()
     aeropuertosCiudadDestino=lt.newList()
-    for linea in catalog['aeorpuertos']:
-        lati= linea['Latitude']
-        longi=linea['Longitude']
-        distanciaO= acos(sin(latitudciudado)*sin(lati)+cos(latitudciudado)*cos(lati)*cos(longitudciudado-longi))
-        distanciaD= acos(sin(latitudciudadd)*sin(lati)+cos(latitudciudadd)*cos(lati)*cos(longitudciudadd-longi))
-        if distanciaO <= x:
-            lt.addLast(aeropuertosCiudadOrigen, linea['Name'])
-        if distanciaD <= x:
-            lt.addLast(aeropuertosCiudadDestino, linea['Name'])
+    lleno=False
+    while lleno == False:
+        for linea in catalog['aeorpuertos']:
+            lati= linea['Latitude']
+            longi=linea['Longitude']
+            distanciaO= acos(sin(latitudciudado)*sin(lati)+cos(latitudciudado)*cos(lati)*cos(longitudciudado-longi))
+            distanciaD= acos(sin(latitudciudadd)*sin(lati)+cos(latitudciudadd)*cos(lati)*cos(longitudciudadd-longi))
+            if distanciaO <= x:
+                lt.addLast(aeropuertosCiudadOrigen, linea['Name'])
+            if distanciaD <= x:
+                lt.addLast(aeropuertosCiudadDestino, linea['Name'])
+    
+        if lt.size(aeropuertosCiudadOrigen) >=1 and lt.size(aeropuertosCiudadDestino >=1):
+            lleno= True
         else:
             x+=10
  
@@ -316,7 +324,23 @@ código IATA “DXB” y ver su efecto en la red de aeropuertos.
 Nota: El conteo de rutas y aeropuertos eliminados en el grafo dirigido y no-dirigido se imprime en
 consola solo para ilustrar como se está elimina el vértice del aeropuerto con código IATA “DBX”
 """
-   
+
+def aeropuertoCerrado(catalog, codigoIATA):
+    aeroAfectados= gr.adjacents(catalog['gd_aero_ruta'], codigoIATA)
+    listaAfectados=lt.newList()
+    for linea in aeroAfectados:
+        for aeropuerto in catalog['aeropuertos_g']:
+            if linea == aeropuerto['IATA']:
+                afectado=lt.newList()
+                nombre=aeropuerto['Name']
+                ciudad= aeropuerto['City']
+                IATA= aeropuerto['IATA']
+                lt.addLast(afectado, nombre)
+                lt.addLast(afectado, ciudad)
+                lt.addLast(afectado, IATA)
+                lt.addLast(listaAfectados, afectado)
+    total= lt.size(listaAfectados)
+    return listaAfectados, total
  
  
  

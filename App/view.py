@@ -151,8 +151,14 @@ while True:
     elif int(inputs[0]) == 5:
         origen = input('ingrese una ciudad de origen: ')
         millasDisp= input('ingrese sus millas disponibles')
-        print(controller.getMillas(catalog, origen, millasDisp))
+        controller.getMillas(catalog, origen, millasDisp)
     elif int(inputs[0]) == 6:
+        codigoIATA= input('Escriba el codigo IATA: ')
+        result=controller.getaeropuertoCerrado(catalog, codigoIATA)
+        print('El total de aeropuertos es: ')
+        print(result[1])
+        print('La lista de aeropuertos es:')
+        print(result[0])
    
         pass
     else:
