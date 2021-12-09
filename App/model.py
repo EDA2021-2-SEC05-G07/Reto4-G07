@@ -24,7 +24,7 @@
  * Dario Correal - Version inicial
  """
  
-from math import trunc
+from math import trunc, acos, cos, sin, radians
 from DISClib.ADT.graph import gr
 import config as cf
 from DISClib.ADT import list as lt
@@ -207,7 +207,38 @@ def rutamascorta(catalog, origen, destino):
     orig= mp.get(catalog['city'], origen)
     dest=mp.get(catalog['city'], destino)
     return (orig, dest)
-def selecruta(catalog, opcionCiudad, opcionCiudad2):
+def selecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest):
+    for linea in orig:
+        if linea['country']== opcionCiudad:
+            latitudciudado=linea['lat']
+            longitudciudado=linea['lng']
+    for linea in dest:
+        if linea['country']== opcionCiudad2:
+            latitudciudadd=linea['lat']
+            longitudciudadd=linea['lng']
+    latitudciudado=radians(latitudciudado)
+    longitudciudado=radians(longitudciudado)
+    latitudciudadd=radians(latitudciudadd)
+    longitudciudadd=radians(longitudciudadd)
+
+    x=10
+    aeropuertosCiudadOrigen=lt.newList()
+    aeropuertosCiudadDestino=lt.newList()
+    for linea in catalog['aeorpuertos']:
+        lati= linea['Latitude']
+        longi=linea['Longitude']
+        distanciaO= acos(sin(latitudciudado)*sin(lati)+cos(latitudciudado)*cos(lati)*cos(longitudciudado-longi))
+        distanciaD= acos(sin(latitudciudadd)*sin(lati)+cos(latitudciudadd)*cos(lati)*cos(longitudciudadd-longi))
+        if distanciaO <= x:
+            lt.addLast(aeropuertosCiudadOrigen, linea['Name'])
+        if distanciaD <= x:
+            lt.addLast(aeropuertosCiudadDestino, linea['Name'])
+        else:
+            x+=10
+
+    return (aeropuertosCiudadOrigen,aeropuertosCiudadDestino)
+
+
     pass
 
     
