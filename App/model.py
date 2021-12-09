@@ -26,6 +26,7 @@
  
 from math import trunc
 from DISClib.ADT.graph import gr
+from DISClib.DataStructures.arraylist import addLast
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
@@ -35,8 +36,8 @@ from DISClib.Utils import error as error
 from DISClib.Algorithms.Graphs import scc
 from DISClib.Algorithms.Graphs import dijsktra as djk
 from DISClib.Algorithms.Graphs import dfs
-
 assert cf
+from DISClib.ADT import orderedmap as om
  
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -96,7 +97,7 @@ def IniciarDatos():
                                              
     catalog['city'] = mp.newMap(numelements=14000,
                                      maptype='PROBING',
-                                     comparefunction=compare2)
+                                     comparefunction=compareMap)
  
     return catalog
  
@@ -155,6 +156,7 @@ def addCity(catalog, linea):
         lt.addLast(info, linea)
         mp.put(catalog['city'], linea['city'], info)
     
+    
 
 # Req 1----------------------------------------------------------------------------------------------------------
 """
@@ -162,11 +164,24 @@ Como analista de vuelos deseo encontrar el (los) aeropuerto(s) que sirven como p
 interconexión a más rutas aéreas en la red en cada uno de los grafos.
 Para dar respuesta a este requerimiento el equipo de desarrollo no necesita ninguna entrada, y
 como respuesta debe presentar en consola la siguiente información:
-• Lista de aeropuertos (IATA, nombre, ciudad, país).
+• Lista de los aeropuertos más interconectados (IATA, nombre, ciudad, país).
 • Número de aeropuertos interconectados.
 """
 def inter_dirigido(catalog):
-    pass
+    lst_vertices = gr.vertices(catalog['gd_aero_ruta'])
+    mapa = mp.newMap(1153, 
+                    maptype='PROBING',
+                    loadfactor=0.6, 
+                    comparefunction=compareMap)
+    for element in lt.iterator(lst_vertices):
+        arcos_llegada = int(gr.indegree(catalog['gd_aero_ruta'], element))
+        arcos_salida = int(gr.degree(catalog['gd_aero_ruta'], element))
+        suma = int(arcos_llegada + arcos_salida)
+        mp.put(mapa, element, suma)
+        pareja = om.get(catalog['gd_aero_ruta'], element)
+        valor = me.getValue(pareja)
+    
+
 
 #req 2---------------------------------------------------------------------------------------------------------
 """
@@ -239,6 +254,14 @@ def compare2(valor1, valor2):
     if (valor1 == valor2):
         return 0
     elif valor1 > valor2:
+        return 1
+    else:
+        return -1
+def compareMap(var1, pareja2):
+    pareja2= me.getKey(pareja2)
+    if (var1) == (pareja2):
+        return 0
+    elif (var1) > (pareja2):
         return 1
     else:
         return -1
