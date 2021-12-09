@@ -282,9 +282,12 @@ del árbol de expansión mínima.
 rama más larga
 """
 def millas(catalog, origen, millasDisp):
-    search = prim.PrimMST(catalog['gd_aero_ruta'])
-    lista_nodos = prim.weightMST(catalog['gd_aero_ruta'],search)
-    dfsSearch= dfs.DepthFirstSearch(catalog['gd_aero_ruta'], origen)
+    km_plan_millas = millasDisp*1.60
+    estructura_search = prim.PrimMST(catalog['g_una_ruta'])
+    arcos_relajados = prim.prim(catalog['g_una_ruta'],estructura_search, origen)
+    lista_nodos = prim.weightMST(catalog['g_una_ruta'],estructura_search)
+    dfsSearch= dfs.DepthFirstSearch(catalog['g_una_ruta'], origen)
+    prim.edgesMST()
     for element in lt.iterator(lista_nodos):
         if element== origen:
             pass

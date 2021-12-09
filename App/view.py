@@ -151,7 +151,7 @@ while True:
     elif int(inputs[0]) == 5:
         origen = input('ingrese una ciudad de origen: ')
         millasDisp= input('ingrese sus millas disponibles')
-        controller.getMillas(catalog, origen, millasDisp)
+        print(controller.getMillas(catalog, origen, millasDisp))
     elif int(inputs[0]) == 6:
    
         pass
