@@ -115,6 +115,8 @@ def getconnectedComponents(catalog, aero1, aero2):
 #req3 --------------------------------------------------------------------------------------
 def getrutamascorta(catalog, origen, destino):
     return model.rutamascorta(catalog, origen, destino)
+def getselecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest):
+    return model.selecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest)
 # Inicialización del Catálogo de libros
  
 # Funciones para la carga de datos
