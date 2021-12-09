@@ -87,7 +87,7 @@ def GetcargarDatos(catalog):
             primeroaeroND=linea
             model.addRutaNoD(catalog, origen2, destino2, peso)
  
-    citiesfile = cf.data_dir + 'worldcities.csv'
+    citiesfile = cf.data_dir + 'worldcities-utf8.csv'
     input_citiesfile = csv.DictReader(open(citiesfile, encoding="utf-8"),
                                 delimiter=",")
     contador=0
