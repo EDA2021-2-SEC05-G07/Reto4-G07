@@ -131,16 +131,18 @@ while True:
                 x+=1
                 print('Opcion ')+ str(x)
                 print (linea)
-                opcionCiudad=input('Digite la opcion que necesita:')
-        opcionCiudad= int(opcionCiudad)-1
+                opcionCiudad=input('Digite el PAIS la opcion que necesita:')
         y=0
         if mp.size(ciudades[1]) > 1:
             for linea in ciudades[1]:
                 y+=1
                 print('Opcion ')+ str(x)
                 print (linea)
-                opcionCiudad2=input('Digite la opcion que necesita:')
-        opcionCiudad2= int(opcionCiudad2)-1
+                opcionCiudad2=input('Digite el PAIS la opcion que necesita:')
+        orig=ciudades[1]
+        dest=ciudades[2]
+        ciudadescortas= controller.getselecruta(catalog, opcionCiudad, opcionCiudad2, orig, dest)
+
     elif int(inputs[0]) == 5:
         pass
     elif int(inputs[0]) == 6:
